@@ -1,0 +1,11 @@
+---
+- name: centos7_init
+  hosts: centos7
+  remote_user: root
+  # remote_user: user
+  # become: yes
+  # become_method: sudo
+
+  roles:
+    - common
+
