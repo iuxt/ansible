@@ -1,0 +1,14 @@
+---
+- name: change yum sourcelist and epel
+  get_url:
+    url: '{{ item.url }}' 
+    dest: '{{ item.dest }}'
+  with_items:
+  - { url: 'https://mirrors.aliyun.com/repo/Centos-7.repo', dest: '/etc/yum.repos.d/CentOS-Base.repo' }
+  - { url: 'http://mirrors.aliyun.com/repo/epel-7.repo', dest: '/etc/yum.repos.d/epel.repo' }
+
+- name: install basic tools
+  yum:
+    name: [ 'wget', 'screen', 'iotop', 'iftop', 'net-tools', 'vim', 'psmisc', 'curl' ]
+    state: latest
+    update_cache: yes

@@ -1,0 +1,47 @@
+---
+- name: limit change
+  blockinfile:
+    path: /etc/security/limits.conf
+    marker: "# Ansible limit Change {mark}"
+    block: |
+      *               soft    nofile          65535
+      *               hard    nofile          65535
+      *               hard    nproc           65535
+      *               soft    nproc           65535
+
+- name: change root passwd
+  user: name=root password=$6$mL0N.2apkAYWJHsh$1MubHbuJ2.dMp421l2TMnXJj5ifMutyosAFcGtcG0jXSCshLH8o4l.JJlBdrg1ZXlerU8DV.hcHMyJtrM6xWC1
+  # password generate by openssl passwd -1
+
+- name: disable root password login
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+  - { regexp: "^PasswordAuthentication",line: "PasswordAuthentication no" }
+  - { regexp: "^#UseDNS yes",line: "UseDNS no" }
+  notify: restart sshd
+
+- name: delete network uuid
+  lineinfile:
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: absent
+  with_items:
+  - { regexp: "^UUID=",line: ""}
+
+- name: disable selinux
+  lineinfile:
+    dest: /etc/selinux/config
+    regexp: "^SELINUX="
+    line: "SELINUX=disabled"
+    state: present
+
+- name: disable firewall
+  systemd:
+    name: firewalld.service
+    state: stopped
+    enabled: False
