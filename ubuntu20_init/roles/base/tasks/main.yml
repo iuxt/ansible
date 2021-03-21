@@ -1,0 +1,9 @@
+---
+- name: change sources.list
+  copy: src=sources.list dest=/etc/apt/sources.list
+
+- name: install basic packages
+  apt: 
+    name: [ 'wget', 'screen', 'iotop', 'iftop', 'net-tools', 'vim', 'psmisc', 'curl' ]
+    state: latest
+    update_cache: yes
