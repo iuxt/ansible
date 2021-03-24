@@ -9,6 +9,13 @@
       *               hard    nproc           65535
       *               soft    nproc           65535
 
+- name: add zhanglikun authorized_keys
+  lineinfile:
+    dest: /root/.ssh/authorized_keys
+    line: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDdj6TxtdDx6e986FbIZ2Icx3I6qaZa25eCjFTgEW0tggQKv9cYRp3Di4X69kNVj+YJNRE6Hqj3PtRAgKIIJRLGuyjyiRMdWhjV5c+IHR0p0jQzTWiyYv3E28ZQrnBL51D65/pXIah6+RDbTw+L3zB26aafKGuOtwY72RjYE4Dg8r0dZUWP80PPzY13Mt2BrRxjW4E2Z0Hf/aaFnTMNPXTE71HmMQFjtoj47vA5NOCZMWQwSnHQNTnSldO4zOMC2DGMv2dhkV4YhhI2XwPyzVwtvtIp3copcmVRL9gKhnG5w8d1W7L5wLQgls1iCQsCGmt9BNom+m6tuQC+sU6cG/QRoBSHZF9+yTAgi9GudA0cJj+FmzCXOty4ARbT3c19ClaZk+snzh582yEiVCsr0hgoWPoft2w7UqIyRo8i9oxiZvKsekItp8JH1apJvWzynCpsGtpMCJ51nAz2zPXtiGxMDrw8aA4ZtPSkjDRvbYaX4nJre98h3kZsrQP1XKlyRJs= iuxt@qq.com"
+    state: present
+    create: true
+
 - name: change root passwd
   user: name=root password=$6$mL0N.2apkAYWJHsh$1MubHbuJ2.dMp421l2TMnXJj5ifMutyosAFcGtcG0jXSCshLH8o4l.JJlBdrg1ZXlerU8DV.hcHMyJtrM6xWC1
   # password generate by openssl passwd -1
