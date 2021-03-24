@@ -1,0 +1,15 @@
+---
+- name: change vim config
+  blockinfile:
+    path: /etc/vim/vimrc
+    marker: "\" Ansible vimrc Change {mark}"
+    block: |
+      set paste
+
+- name: change git config
+  copy:
+    src: .gitconfig
+    dest: /root/.gitconfig
+    owner: root
+    group: root
+    mode: '0644'

@@ -1,5 +1,5 @@
 ---
 
-- include: install_package.yml
+- include: install_packages.yml
 - include: system_config.yml
 - include: tools_config.yml
