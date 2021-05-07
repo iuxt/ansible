@@ -1,0 +1,7 @@
+[user]
+        name = zhanglikun
+        email = iuxt@qq.com
+[credential]
+        helper = store
+[core]
+        autocrlf = input
