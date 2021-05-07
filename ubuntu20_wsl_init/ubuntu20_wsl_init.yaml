@@ -15,6 +15,8 @@
       src: files/sources.list
       dest: /etc/apt/
     become: yes
+    # become_user: root  # 默认, 可以省
+    # become_method: sudo  # 默认, 可以省
 
   - name: install some tools
     apt: 
@@ -22,6 +24,4 @@
       state: latest
       update_cache: yes
     become: yes
-    # become_user: root  # 默认, 可以省
-    # become_method: sudo  # 默认, 可以省
 
