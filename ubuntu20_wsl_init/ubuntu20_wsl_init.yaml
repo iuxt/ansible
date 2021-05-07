@@ -3,7 +3,7 @@
   vars:
     ansible_connection: local  # 加上这个所有task都在本机执行
   # remote_user: root
-  gather_facts: no
+  gather_facts: yes
   tasks:
 
   - name: test
@@ -11,17 +11,38 @@
     # delegate_to: localhost  # 加上这个这个task在本机执行
 
   - name: change chinese repo
-    copy:
-      src: files/sources.list
-      dest: /etc/apt/
+    template:
+      src: templates/sources.list.j2
+      dest: /etc/apt/sources.list
     become: yes
     # become_user: root  # 默认, 可以省
     # become_method: sudo  # 默认, 可以省
 
-  - name: install some tools
+  - name: install basic tools
     apt: 
-      name: [ 'wget', 'screen', 'iotop', 'iftop', 'net-tools', 'vim', 'psmisc', 'curl' ]
+      name: [ 'wget', 'screen', 'vim', 'psmisc', 'curl', 'zsh' ]
       state: latest
       update_cache: yes
     become: yes
 
+  - name: git clone zsh
+    git:
+      repo: https://github.com/ohmyzsh/ohmyzsh.git
+      dest: ~/.oh-my-zsh
+
+  - name: copy .zshrc
+    copy:
+      src: ~/.oh-my-zsh/templates/zshrc.zsh-template
+      dest: ~/.zshrc
+  
+  - name: change zsh theme
+    lineinfile:
+      dest: ~/.zshrc
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
+      state: present
+    with_items:
+    - { regexp: "^ZSH_THEME=.*",line: "ZSH_THEME=agnoster" }
+
+  - name: change shell to zsh
+    user: name={{ ansible_user_id }} shell=/usr/bin/zsh
