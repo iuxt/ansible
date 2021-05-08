@@ -1,0 +1,36 @@
+- name: install openssh-server
+  apt: 
+    name: openssh-server
+    state: latest
+    update_cache: yes
+  become: yes
+
+- name: add zhanglikun authorized_keys
+  lineinfile:
+    dest: ~/.ssh/authorized_keys
+    line: "{{ item.line }}"
+    state: present
+    create: true
+  with_items:
+  - {line: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDGqzEjjQrPkxRQ3o+P9bSnj28uNhsQNx4aBm36GCYK0yXjEiCMVUAFnTSrzDsQQuG5rE8t50MPQ+ikmKTpf3IJsmTK2lOEpKh4QqOgic5dAr+7M/084fkeOesYWZn0Jq3j9kiE+yyCaOa/QTQl60WJqYorvu1vtdkJuOPka7yUgZa4AuyJdodrVD7GIUGIzINd4qg6fOpuMSzyR1wtpMWnsSJsOVd+w51Btk4ZqygfH9cEu2VbyhNqCEpgrU1L/x/1cAjZFbHQPqUquElRZyteEZ+ZDjIxfRlUKpShCKEjTXtu2/NeCC6u74mbBYwW88AdxqzaSx/KBASAFM3QOiNfltH1t9ShNHWeFlDE1v7cX8M8tlfe47zBEeTbZM0NYF4l1jRd04EinTuNEktm1ggfltjtTZe7nVydxQKaBEob++qjBs6u4oRBDAGr+rFhsQ6RQbMRjlGJL+CvVtqKqlh23JAE//G3//1wVUmpADjbyTtXLchWsJXaJrwBYbQ8zoM= iuxt@LEGION"}
+  - {line: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzUkJZ7eFXYLr2lQdy00D3nQOm/IQ/VvpJ257JyYO6AZbEfCoRBj5gQqtrjRtdITL2uY8nrQrUBkTFGHtNH4Cn1eYTVsoPoN9K5/+5kfTrdzIExBls1ef40NLjS7K7MwnxZo/dshmSw4Z/Xd0JxF/LV0TbxycaAdLWJoxIe7mChTlbs3tktjWWoVcsqoJRhJQOYuQVi1RdDsJIqXmKhxWZmNtBGKVvzHxxrBtg5bmej2e/Ge8xy3dhYRCW8KX20LhxDxe7CS0hwBsypmFsuwFNLj1ylCyL5fwmf0mXHCRL0w40/iYUq9E1KuCmtzVNQNJlU4oBUwg4GvNkGr8mjdBx7CTcU0mCtQnK7iqHPp8Z7rTCX5AmtwAnrC378J4kCT9jOhA7Didij4+rcYyqDVBoTHtHopYk0nFhydGX5sidyfqO6mcOghfcu5LAYQ/aTor7BsIh3n4raqK19fe8vcaBNKznTiJ7T3ZoXsKUUT8I3y1/rER8QJsppldFwHpfjjc= iuxt@work-pc"}
+
+- name: disable root password login
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+  - { regexp: "^PasswordAuthentication",line: "PasswordAuthentication no" }
+  - { regexp: "^#UseDNS yes",line: "UseDNS no" }
+  notify: restart sshd
+  become: yes
+
+
+- name: config sshd service
+  service:
+    name: ssh
+    state: started
+    enabled: yes
+  become: yes
