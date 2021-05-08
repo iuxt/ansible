@@ -1,0 +1,11 @@
+---
+- name: ubuntu20_server_init
+  hosts: ubuntu20
+  remote_user: ubuntu
+  roles:
+    - system_config
+    - openssh-server
+    - git
+    - zsh
+    - vim
+    - python3
