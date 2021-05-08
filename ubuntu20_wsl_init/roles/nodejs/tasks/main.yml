@@ -1,0 +1,20 @@
+---
+- name: download nodejs to /usr/local/
+  unarchive:
+    src: 'https://nodejs.org/dist/v14.16.1/node-v14.16.1-linux-x64.tar.xz' 
+    dest: '~/.local/'
+    remote_src: yes
+
+- name: add path to .zshrc 
+  lineinfile:
+    dest: '~/.zshrc'
+    line: '{{ item.line }}'
+    state: present
+    create: true
+  loop:
+    - { line: 'export PATH=$PATH:~/.local/node-v14.16.1-linux-x64/bin' }
+
+- name: change npm config
+  copy:
+    src: .npmrc
+    dest: ~/.npmrc
