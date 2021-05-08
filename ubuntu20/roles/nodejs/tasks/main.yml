@@ -1,5 +1,7 @@
 ---
-- name: download nodejs to /usr/local/
+- name: mkdir ~/.local
+  file: path=~/.local state=directory recurse=yes
+- name: download nodejs to ~/.local
   unarchive:
     src: 'https://nodejs.org/dist/v14.16.1/node-v14.16.1-linux-x64.tar.xz' 
     dest: '~/.local/'
