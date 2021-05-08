@@ -1,0 +1,24 @@
+---
+- name: install python3
+  apt: 
+    name: ["python3", "python3-pip"]
+    state: latest
+    update_cache: yes
+  become: yes
+
+- name: create link to python
+  file:
+    src: '/usr/bin/{{ item.src }}'
+    dest: '/usr/bin/{{ item.dest }}'
+    state: link
+  loop:
+    - { src: python3, dest: python }
+    - { src: pip3, dest: pip }
+  become: yes
+
+- name: create pip firectory
+  file: path=~/.config/pip/ state=directory recurse=yes
+- name: change pip config
+  copy:
+    src: pip.conf
+    dest: ~/.config/pip/pip.conf
