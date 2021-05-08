@@ -1,0 +1,12 @@
+---
+- name: install vim
+  apt: 
+    name: vim
+    state: latest
+    update_cache: yes
+  become: yes
+
+- name: change vim config
+  copy:
+    src: .vimrc
+    dest: ~/.vimrc
