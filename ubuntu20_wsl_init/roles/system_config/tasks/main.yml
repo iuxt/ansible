@@ -1,0 +1,29 @@
+- name: change chinese repo
+  template:
+    src: sources.list.j2
+    dest: /etc/apt/sources.list
+  become: yes
+
+- name: install basic tools
+  apt: 
+    name: [ 'wget', 'screen', 'psmisc', 'curl']
+    state: latest
+    update_cache: yes
+  become: yes
+
+- name: ulimit change
+  blockinfile:
+    path: /etc/security/limits.conf
+    marker: "# Ansible limit Change {mark}"
+    block: |
+      *               soft    nofile          65535
+      *               hard    nofile          65535
+      *               hard    nproc           65535
+      *               soft    nproc           65535
+  become: yes
+
+- name: change root passwd
+  user: name=root password=$6$mL0N.2apkAYWJHsh$1MubHbuJ2.dMp421l2TMnXJj5ifMutyosAFcGtcG0jXSCshLH8o4l.JJlBdrg1ZXlerU8DV.hcHMyJtrM6xWC1
+  become: yes
+  # password generate by openssl passwd -1
+
