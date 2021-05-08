@@ -1,0 +1,29 @@
+
+- name: install zsh
+  apt: 
+    name: zsh
+    state: latest
+    update_cache: yes
+  become: yes
+
+- name: git clone oh-my-zsh
+  git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: ~/.oh-my-zsh
+
+- name: copy .zshrc
+  copy:
+    src: ~/.oh-my-zsh/templates/zshrc.zsh-template
+    dest: ~/.zshrc
+
+- name: change zsh theme
+  lineinfile:
+    dest: ~/.zshrc
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+  - { regexp: "^ZSH_THEME=.*",line: "ZSH_THEME=agnoster" }
+
+- name: change shell to zsh
+  user: name={{ ansible_user_id }} shell=/usr/bin/zsh
