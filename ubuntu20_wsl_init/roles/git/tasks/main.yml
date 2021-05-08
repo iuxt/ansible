@@ -1,0 +1,12 @@
+- name: install git
+  apt: 
+    name: git
+    state: latest
+    update_cache: yes
+  become: yes
+
+- name: copy .gitconfig
+  copy:
+    src: .gitconfig
+    dest: ~/.gitconfig
+    
