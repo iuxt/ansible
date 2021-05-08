@@ -1,0 +1,10 @@
+---
+- name: ubuntu20_wsl_init
+  hosts: localhost
+
+  roles:
+    - system_config
+    - openssh-server
+    - zsh
+    - git
+    
