@@ -15,7 +15,8 @@
   copy:
     src: ~/.oh-my-zsh/templates/zshrc.zsh-template
     dest: ~/.zshrc
-
+    force: no
+    
 - name: change zsh theme
   lineinfile:
     dest: ~/.zshrc
