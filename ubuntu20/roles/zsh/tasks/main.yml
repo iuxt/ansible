@@ -29,3 +29,12 @@
 - name: change shell to zsh
   user: name={{ ansible_user_id }} shell=/usr/bin/zsh
   become: yes
+
+- name: create ~/.local/bin
+  file: path=~/.local/bin state=directory recurse=yes
+
+- name: add ~/.local/bin to ~/.zshrc
+  lineinfile:
+    dest: ~/.zshrc
+    line: "export PATH=$PATH:~/.local/bin"
+    state: present
