@@ -1,0 +1,12 @@
+- name: install ibus-rime
+  apt: 
+    name: ibus-rime
+    state: latest
+    update_cache: yes
+  become: yes
+
+- name: copy rime config
+  synchronize:
+    src: .
+    dest: ~/.config/ibus/rime/
+    delete: yes
