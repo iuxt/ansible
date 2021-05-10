@@ -15,6 +15,7 @@
     create: true
   loop:
     - { line: 'export PATH=$PATH:~/.local/node-{{ nodejs_version }}-linux-x64/bin' }
+    - { line: 'export PATH=$PATH:~/.yarn/bin' }
 
 - name: change npm config
   copy:
