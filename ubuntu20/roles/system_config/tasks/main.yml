@@ -25,5 +25,5 @@
 - name: change root passwd
   user: name=root password=$6$mL0N.2apkAYWJHsh$1MubHbuJ2.dMp421l2TMnXJj5ifMutyosAFcGtcG0jXSCshLH8o4l.JJlBdrg1ZXlerU8DV.hcHMyJtrM6xWC1
   become: yes
-  # password generate by openssl passwd -1
+  # password generate by openssl passwd -6
 
