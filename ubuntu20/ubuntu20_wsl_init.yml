@@ -6,7 +6,6 @@
 
   roles:
     - system_config
-    - openssh-server
     - git
     - zsh
     - vim
