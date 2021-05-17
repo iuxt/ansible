@@ -3,11 +3,11 @@
   hosts: localhost
   remote_user: ubuntu
   roles:
-   - system_config
-   - openssh-server
-   - git
-   - zsh
-   - vim
-   - python3
-   - nodejs
-   - rime
+    - system_config
+    - openssh-server
+    - git
+    - zsh
+    - vim
+    - python3
+    - nodejs
+    - rime
