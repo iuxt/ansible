@@ -7,9 +7,6 @@
     dest: '~/.local/'
     remote_src: yes
 
-- name: install yarn
-  shell: '~/.local/node-{{ nodejs_version }}-linux-x64/bin/npm install -g yarn'
-
 - name: add path to .zshrc 
   lineinfile:
     dest: '~/.zshrc'
