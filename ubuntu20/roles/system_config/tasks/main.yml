@@ -6,7 +6,7 @@
 
 - name: install basic tools
   apt: 
-    name: [ 'wget', 'screen', 'psmisc', 'curl']
+    name: [ 'wget', 'screen', 'psmisc', 'curl', 'apt-file', 'unzip']
     state: latest
     update_cache: yes
   become: yes
