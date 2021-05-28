@@ -27,3 +27,17 @@
   become: yes
   # password generate by openssl passwd -6
 
+# vmware workstation 点击挂起会卡死, 所以关闭挂起和休眠等功能.
+- name: disable sleep.target suspend.target hibernate.target hybrid-sleep.target
+  systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+    masked: yes
+  become: yes
+  with_items: 
+    - "sleep.target"
+    - "suspend.target"
+    - "hibernate.target"
+    - "hybrid-sleep.target"
+  when: ansible_virtualization_type == "VMware"
