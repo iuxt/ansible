@@ -6,6 +6,8 @@
     src: 'https://npm.taobao.org/mirrors/node/{{ nodejs_version }}/node-{{ nodejs_version }}-linux-x64.tar.xz'
     dest: '~/.local/'
     remote_src: yes
+  args:
+    creates: ~/.local/node-{{ nodejs_version }}-linux-x64
 
 - name: add path to .zshrc 
   lineinfile:
