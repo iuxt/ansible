@@ -12,3 +12,16 @@
     src: .
     dest: ~/.config/fcitx/rime/
     delete: yes
+
+- name: install fcitx plugins
+  apt:
+    name: ['fcitx-config-gtk']
+    state: latest
+    update_cache: no
+  become: yes
+
+- name: uninstall ibus
+  apt:
+    name: ['ibus']
+    state: absent
+    autoremove: yes
