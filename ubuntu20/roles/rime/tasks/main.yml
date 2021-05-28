@@ -1,14 +1,14 @@
-- name: install ibus-rime
+- name: install rime
   apt: 
-    name: ibus-rime
+    name: fcitx-rime
     state: latest
     update_cache: yes
   become: yes
 
 - name: create rime config path
-  file: path=~/.config/ibus/rime/ state=directory recurse=yes
+  file: path=~/.config/fcitx/rime/ state=directory recurse=yes
 - name: copy rime config
   synchronize:
     src: .
-    dest: ~/.config/ibus/rime/
+    dest: ~/.config/fcitx/rime/
     delete: yes
