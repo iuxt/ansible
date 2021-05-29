@@ -5,6 +5,7 @@
     ansible_connection: local  # 加上这个所有task都在本机执行
 
   roles:
+    - repository
     - system_config
     - git
     - zsh

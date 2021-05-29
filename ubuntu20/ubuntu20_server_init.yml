@@ -3,6 +3,7 @@
   hosts: ubuntu20
   remote_user: ubuntu
   roles:
+    - repository
     - system_config
     - openssh-server
     - git
