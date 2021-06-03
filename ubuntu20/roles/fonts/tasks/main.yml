@@ -1,0 +1,7 @@
+# 添加字体  vscode添加: 'JetBrainsMono Nerd Font Mono'  终端里搜索: JetBrainsMono Nerd Font Mono
+- name: create fonts folder
+  file: path=~/.local/share/fonts recurse=yes state=directory
+- name: install fonts
+  copy:
+    src: fonts/
+    dest: ~/.local/share/fonts/
