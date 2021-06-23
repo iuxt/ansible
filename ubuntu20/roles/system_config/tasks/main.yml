@@ -5,6 +5,13 @@
     update_cache: yes
   become: yes
 
+# system lib
+  apt: 
+    name: [ 'libbz2-dev', 'libreadline-dev', 'libssl-dev', 'libsqlite3-dev']
+    state: latest
+    update_cache: yes
+  become: yes
+
 - name: ulimit change
   blockinfile:
     path: /etc/security/limits.conf
