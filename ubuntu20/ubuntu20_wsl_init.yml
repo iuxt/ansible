@@ -11,4 +11,6 @@
     - zsh
     - vim
     - python3
-    - nodejs
+    - role: nodejs
+      vars:
+        nodejs_version: v14.17.0
