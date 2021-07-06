@@ -6,6 +6,7 @@
     remote_src: yes
   args:
     creates: /usr/local/node-{{ nodejs_version }}-linux-x64
+  become: yes
 
 - name: add path to .zshrc 
   lineinfile:
