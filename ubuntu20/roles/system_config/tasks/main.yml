@@ -1,13 +1,6 @@
 - name: install basic tools
   apt: 
-    name: [ 'wget', 'screen', 'psmisc', 'curl', 'apt-file', 'unzip']
-    state: latest
-    update_cache: yes
-  become: yes
-
-# system lib
-  apt: 
-    name: [ 'libbz2-dev', 'libreadline-dev', 'libssl-dev', 'libsqlite3-dev']
+    name: [ 'wget', 'screen', 'psmisc', 'curl', 'apt-file', 'unzip', 'libbz2-dev', 'libreadline-dev', 'libssl-dev', 'libsqlite3-dev']
     state: latest
     update_cache: yes
   become: yes
