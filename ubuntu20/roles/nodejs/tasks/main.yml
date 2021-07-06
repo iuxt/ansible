@@ -1,13 +1,11 @@
 ---
-- name: mkdir ~/.local
-  file: path=~/.local state=directory recurse=yes
-- name: download nodejs to ~/.local
+- name: download nodejs to /usr/local/
   unarchive:
     src: 'https://nodejs.org/dist/{{ nodejs_version }}/node-{{ nodejs_version }}-linux-x64.tar.xz'
-    dest: '~/.local/'
+    dest: '/usr/local/'
     remote_src: yes
   args:
-    creates: ~/.local/node-{{ nodejs_version }}-linux-x64
+    creates: /usr/local/node-{{ nodejs_version }}-linux-x64
 
 - name: add path to .zshrc 
   lineinfile:
@@ -16,8 +14,7 @@
     state: present
     create: true
   loop:
-    - { line: 'export PATH=$PATH:~/.local/node-{{ nodejs_version }}-linux-x64/bin' }
-    - { line: 'export PATH=$PATH:~/.yarn/bin' }
+    - { line: 'export PATH=$PATH:/usr/local/node-{{ nodejs_version }}-linux-x64/bin' }
 
 - name: change npm config
   copy:
