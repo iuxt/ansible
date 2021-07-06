@@ -1,10 +1,15 @@
 ---
 - name: install vim
   apt: 
-    name: vim
+    name: ["vim", "vim-airline-themes"]
     state: latest
     update_cache: yes
   become: yes
+
+- name: install vim plugin nerdtree
+  git:
+    repo: https://github.com/preservim/nerdtree.git
+    dest: ~/.vim/pack/vendor/start/nerdtree
 
 - name: change vim config
   copy:
