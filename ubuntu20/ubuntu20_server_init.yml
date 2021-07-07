@@ -10,4 +10,4 @@
     - zsh
     - vim
     - python3
-    - nodejs
+    - { role: nodejs, nodejs_version: v14.17.0 }
