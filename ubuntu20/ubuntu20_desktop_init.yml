@@ -1,14 +1,14 @@
 ---
 - name: ubuntu20_desktop_init
   hosts: ubuntu
-  remote_user: mint
+  remote_user: ubuntu
   roles:
     - repository
     - system_config
     - fonts
     - openssh-server
     - git
-    - zsh
+    - { role: zsh, zsh_theme: powerlevel10k }
     - vim
     - python3
     - { role: nodejs, nodejs_version: v14.17.0 }

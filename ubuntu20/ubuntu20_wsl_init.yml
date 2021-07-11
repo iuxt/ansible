@@ -8,7 +8,7 @@
     - repository
     - system_config
     - git
-    - zsh
+    - { role: zsh, zsh_theme: powerlevel10k }
     - vim
     - python3
     - { role: nodejs, nodejs_version: v14.17.0 }

@@ -7,7 +7,6 @@
     - system_config
     - openssh-server
     - git
-    - zsh
     - vim
     - python3
     - { role: nodejs, nodejs_version: v14.17.0 }

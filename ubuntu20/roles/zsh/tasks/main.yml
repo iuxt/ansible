@@ -16,15 +16,6 @@
     src: ~/.oh-my-zsh/templates/zshrc.zsh-template
     dest: ~/.zshrc
     force: no
-    
-- name: change zsh theme
-  lineinfile:
-    dest: ~/.zshrc
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-    state: present
-  with_items:
-  - { regexp: "^ZSH_THEME=.*",line: "ZSH_THEME=agnoster" }
 
 - name: change shell to zsh
   user: name={{ ansible_user_id }} shell=/usr/bin/zsh
@@ -38,3 +29,17 @@
     dest: ~/.zshrc
     line: "export PATH=$PATH:~/.local/bin"
     state: present
+
+# 更换主题为agnoster
+- name: change zsh theme
+  lineinfile:
+    dest: ~/.zshrc
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+  - { regexp: "^ZSH_THEME=.*",line: "ZSH_THEME=agnoster" }
+  when: zsh_theme == "agnoster"
+
+- include: powerlevel10k.yml
+  when: zsh_theme == "powerlevel10k"
