@@ -25,3 +25,4 @@
     name: ['ibus']
     state: absent
     autoremove: yes
+  become: yes
