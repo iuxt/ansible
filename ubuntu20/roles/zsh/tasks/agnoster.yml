@@ -1,0 +1,9 @@
+# 更换主题为agnoster
+- name: change zsh theme
+  lineinfile:
+    dest: ~/.zshrc
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+  - { regexp: "^ZSH_THEME=.*",line: "ZSH_THEME=agnoster" }
