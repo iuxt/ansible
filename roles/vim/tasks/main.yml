@@ -9,7 +9,7 @@
 - name: select-editor 设置默认编辑器为vim
   copy:
     src: .selected_editor
-    dest: "{{ ansible_user_id }}/.selected_editor"
+    dest: "{{ ansible_env.HOME }}/.selected_editor"
 
 - name: update-alternatives --config editor 设置默认编辑器为vim
   file:
@@ -19,21 +19,21 @@
     force: yes
   become: yes
 
-- file: path="{{ ansible_user_id }}/.vim/autoload/" state=directory recurse=yes
+- file: path="{{ ansible_env.HOME }}/.vim/autoload/" state=directory recurse=yes
 
 - name: 安装Plug插件管理工具
   get_url:
     url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    dest: "{{ ansible_user_id }}/.vim/autoload/"
+    dest: "{{ ansible_env.HOME }}/.vim/autoload/"
   when: in_china != "yes"
 
 - name: 安装Plug插件管理工具
   copy:
     src: "plug.vim"
-    dest: "{{ ansible_user_id }}/.vim/autoload/"
+    dest: "{{ ansible_env.HOME }}/.vim/autoload/"
   when: in_china == "yes"
 
 - name: 更改.vimrc配置文件
   copy:
     src: .vimrc
-    dest: "{{ ansible_user_id }}/.vimrc"
+    dest: "{{ ansible_env.HOME }}/.vimrc"

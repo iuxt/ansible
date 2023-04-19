@@ -17,8 +17,8 @@
     - { src: pip3, dest: pip }
   become: yes
 
-- file: path="{{ ansible_user_id }}/.config/pip/" state=directory recurse=yes
+- file: path="{{ ansible_env.HOME }}/.config/pip/" state=directory recurse=yes
 - name: change pip config
   copy:
     src: pip.conf
-    dest: "{{ ansible_user_id }}/.config/pip/pip.conf"
+    dest: "{{ ansible_env.HOME }}/.config/pip/pip.conf"

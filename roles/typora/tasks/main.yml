@@ -17,9 +17,9 @@
     creates: "{{ install_dir }}/typora"
   when: in_china == "yes"
 
-- file: path="{{ ansible_user_id }}/.local/share/applications" state=directory recurse=yes
+- file: path="{{ ansible_env.HOME }}/.local/share/applications" state=directory recurse=yes
 
 - name: create Typora desktop icons
   template:
     src: "typora.desktop.j2"
-    dest: "{{ ansible_user_id }}/.local/share/applications/typora.desktop"
+    dest: "{{ ansible_env.HOME }}/.local/share/applications/typora.desktop"

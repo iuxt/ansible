@@ -75,8 +75,8 @@
 
 - name: bash引用自定义rc文件
   lineinfile:
-    dest: "{{ ansible_user_id }}/.rc"
-    line: "source {{ ansible_user_id }}/.rc"
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    line: "source {{ ansible_env.HOME }}/.rc"
     state: present
     create: true
 
@@ -89,7 +89,7 @@
 
 - name: 设置常用的alias
   lineinfile:
-    dest: "{{ ansible_user_id }}/.rc"
+    dest: "{{ ansible_env.HOME }}/.rc"
     line: '{{ item.line }}'
     state: present
     create: true

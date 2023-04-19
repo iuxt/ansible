@@ -27,11 +27,11 @@
 
 - name: Recursively Create VsCode User directory
   file:
-    path: "{{ ansible_user_id }}/.config/Code/User/"
+    path: "{{ ansible_env.HOME }}/.config/Code/User/"
     state: directory
     recurse: yes
 
 - name: change vscode config
   copy:
     src: settings.json
-    dest: "{{ ansible_user_id }}/.config/Code/User/settings.json"
+    dest: "{{ ansible_env.HOME }}/.config/Code/User/settings.json"

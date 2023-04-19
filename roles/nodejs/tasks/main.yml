@@ -30,7 +30,7 @@
 
 - name: 添加nodejs环境变量到自定义rc文件
   lineinfile:
-    dest: '{{ ansible_user_id }}/.rc'
+    dest: '{{ ansible_env.HOME }}/.rc'
     line: '{{ item.line }}'
     state: present
     create: true
@@ -42,4 +42,4 @@
 - name: change npm config
   copy:
     src: .npmrc
-    dest: "{{ ansible_user_id }}/.npmrc"
+    dest: "{{ ansible_env.HOME }}/.npmrc"

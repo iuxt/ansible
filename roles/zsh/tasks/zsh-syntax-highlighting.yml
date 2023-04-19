@@ -1,13 +1,13 @@
 - name: git clone zsh-syntax-highlighting
   git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: "{{ ansible_user_id }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
     depth: 1
   when: in_china != 'yes'
 
 - name: git clone zsh-syntax-highlighting in China
   git:
     repo: https://e.coding.net/iuxt/github_mirror/zsh-syntax-highlighting.git
-    dest: "{{ ansible_user_id }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
     depth: 1
   when: in_china == 'yes'

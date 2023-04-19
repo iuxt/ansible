@@ -1,0 +1,11 @@
+# linux mint 不能这么修改源, 所以加了个判断
+- name: change chinese repo
+  template:
+    src: sources.list.j2
+    dest: /etc/apt/sources.list
+  become: yes
+  when:
+    - ansible_distribution == "Ubuntu"
+    - in_china == "yes"
+  vars:
+    in_china: "yes"

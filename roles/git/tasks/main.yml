@@ -9,14 +9,12 @@
 - name: copy .gitconfig
   copy:
     src: .gitconfig
-    dest: "{{ ansible_user_id }}/.gitconfig"
+    dest: "{{ ansible_env.HOME }}/.gitconfig"
     
 - name: 设置gpg的tty配置
   lineinfile:
-    dest: '{{ ansible_user_id }}/.rc'
+    dest: '{{ ansible_env.HOME }}/.rc'
     line: 'export GPG_TTY=$(tty)'
     state: present
     create: true
-  when: 
-    - "'WSL2' in ansible_kernel"        # 这个是wsl2的内核
-    - "'Microsoft' in ansible_kernel"   # 这个是wsl1的内核
+  when: "'WSL2' in ansible_kernel or 'Microsoft' in ansible_kernel"

@@ -1,13 +1,13 @@
 - name: git clone zsh-autosuggestions
   git:
     repo: https://github.com/zsh-users/zsh-autosuggestions.git
-    dest: "{{ ansible_user_id }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
     depth: 1
   when: in_china != "yes"
 
 - name: git clone zsh-autosuggestions in China
   git:
     repo: https://e.coding.net/iuxt/github_mirror/zsh-autosuggestions.git
-    dest: "{{ ansible_user_id }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
     depth: 1
   when: in_china == "yes"

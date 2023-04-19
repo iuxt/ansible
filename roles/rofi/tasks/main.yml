@@ -6,11 +6,11 @@
   become: yes
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Linux Mint"
 
-- file: path="{{ ansible_user_id }}/.config/rofi/" state=directory recurse=yes
+- file: path="{{ ansible_env.HOME }}/.config/rofi/" state=directory recurse=yes
 - name: copy rofi config
   synchronize:
     src: .
-    dest: "{{ ansible_user_id }}/.config/rofi/"
+    dest: "{{ ansible_env.HOME }}/.config/rofi/"
     delete: yes
 
 - debug: 

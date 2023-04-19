@@ -8,12 +8,12 @@
     - "ansible_distribution == 'Linux Mint'"
     - "ansible_distribution_major_version|int >= 21"
 
-- file: path="{{ ansible_user_id }}/.local/share/fonts recurse=yes state=directory
+- file: path="{{ ansible_env.HOME }}/.local/share/fonts" recurse=yes state=directory
 
 - name: install 'MesloLGS NF'
   get_url:
     url: "{{ item }}"
-    dest: "{{ ansible_user_id }}/.local/share/fonts/
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/"
   with_items:
     - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
     - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
@@ -25,6 +25,6 @@
   unarchive:
     remote_src: yes
     src: "https://src.babudiu.com/fonts/MesloLGS%20NF.tar.gz"
-    dest: "{{ ansible_user_id }}/.local/share/fonts/
-    creates: ""{{ ansible_user_id }}/.local/share/fonts/MesloLGS%20NF%20Regular.ttf"
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/"
+    creates: "{{ ansible_env.HOME }}/.local/share/fonts/MesloLGS%20NF%20Regular.ttf"
   when: in_china == "yes"

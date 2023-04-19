@@ -1,7 +1,7 @@
 # 更换主题为agnoster
 - name: change zsh theme
   lineinfile:
-    dest: "{{ ansible_user_id }}/.zshrc"
+    dest: "{{ ansible_env.HOME }}/.zshrc"
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
     state: present

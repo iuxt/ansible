@@ -11,7 +11,7 @@
 
 - name: 创建fcitx5-rime的配置文件目录
   file: 
-    path: "{{ ansible_user_id }}/.local/share/fcitx5/rime/"
+    path: "{{ ansible_env.HOME }}/.local/share/fcitx5/rime/"
     state: directory
     recurse: yes
   # when: 
@@ -22,7 +22,7 @@
 - name: copy fcitx5 rime config
   synchronize:
     src: .
-    dest: "{{ ansible_user_id }}/.local/share/fcitx5/rime/"
+    dest: "{{ ansible_env.HOME }}/.local/share/fcitx5/rime/"
     delete: yes
   # when: 
   #   ( ansible_distribution == "Debian" and ansible_distribution_major_version|int >= 11 )

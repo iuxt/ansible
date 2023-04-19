@@ -28,16 +28,16 @@
   - name: git clone zsh
     git:
       repo: https://github.com/ohmyzsh/ohmyzsh.git
-      dest: "{{ ansible_user_id }}/.oh-my-zsh"
+      dest: "{{ ansible_env.HOME }}/.oh-my-zsh"
 
   - name: copy .zshrc
     copy:
-      src: "{{ ansible_user_id }}/.oh-my-zsh/templates/zshrc.zsh-template"
-      dest: "{{ ansible_user_id }}/.zshrc"
+      src: "{{ ansible_env.HOME }}/.oh-my-zsh/templates/zshrc.zsh-template"
+      dest: "{{ ansible_env.HOME }}/.zshrc"
   
   - name: change zsh theme
     lineinfile:
-      dest: "{{ ansible_user_id }}/.zshrc"
+      dest: "{{ ansible_env.HOME }}/.zshrc"
       regexp: "{{ item.regexp }}"
       line: "{{ item.line }}"
       state: present

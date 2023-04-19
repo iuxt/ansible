@@ -21,7 +21,7 @@
 
 - name: 添加golang环境变量
   lineinfile:
-    dest: '{{ ansible_user_id }}/.rc'
+    dest: '{{ ansible_env.HOME }}/.rc'
     line: '{{ item.line }}'
     state: present
     create: true
