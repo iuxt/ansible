@@ -1,0 +1,5 @@
+[centos7]
+centos7-1 ansible_ssh_host=192.168.2.215 ansible_user=root ansible_ssh_pass="com.012"
+
+[ubuntu20]
+ubuntu20-1 ansible_ssh_host=192.168.3.89 ansible_user=ubuntu ansible_ssh_pass="ubuntu" ansible_sudo_pass="ubuntu"

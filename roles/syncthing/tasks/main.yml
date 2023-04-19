@@ -1,0 +1,16 @@
+---
+- name: install syncthing
+  apt: 
+    name: ['syncthing']
+    state: latest
+    update_cache: no
+  become: yes
+
+- name: enable and start syncthing daemon
+  systemd:
+    name: "syncthing@{{ ansible_user_id }}.service"
+    state: started
+    enabled: yes
+  become: yes
+
+# default url is http://localhost:8384

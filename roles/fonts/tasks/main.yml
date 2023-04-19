@@ -1,0 +1,30 @@
+- name: 删除一些中文字体，修复gnome-terminal的bug
+  apt: 
+    name: ['fonts-noto-cjk']
+    state: absent
+    update_cache: no
+  become: yes
+  when: 
+    - "ansible_distribution == 'Linux Mint'"
+    - "ansible_distribution_major_version|int >= 21"
+
+- file: path="{{ ansible_user_id }}/.local/share/fonts recurse=yes state=directory
+
+- name: install 'MesloLGS NF'
+  get_url:
+    url: "{{ item }}"
+    dest: "{{ ansible_user_id }}/.local/share/fonts/
+  with_items:
+    - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
+    - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
+    - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
+    - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
+  when: in_china != "yes"
+
+- name: install 'MesloLGS NF' in China
+  unarchive:
+    remote_src: yes
+    src: "https://src.babudiu.com/fonts/MesloLGS%20NF.tar.gz"
+    dest: "{{ ansible_user_id }}/.local/share/fonts/
+    creates: ""{{ ansible_user_id }}/.local/share/fonts/MesloLGS%20NF%20Regular.ttf"
+  when: in_china == "yes"

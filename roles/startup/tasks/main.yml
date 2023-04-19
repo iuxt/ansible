@@ -1,0 +1,12 @@
+- name: add startup systemd service
+  copy:
+    src: startup.service
+    dest: /usr/lib/systemd/system/startup.service
+  become: yes
+
+- name: add startup script for startup systemd service
+  copy:
+    src: startup.sh
+    dest: /etc/startup.sh
+    mode: 0755
+  become: yes

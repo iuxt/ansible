@@ -1,0 +1,15 @@
+[user]
+        name = zhanglikun
+        email = x@zahui.fan
+        signingkey = zhanglikun
+[credential]
+        helper = store
+[core]
+        autocrlf = input
+        quotepath = false
+[init]
+        defaultBranch = master
+[pull]
+        rebase = false
+[commit]
+        gpgsign = true

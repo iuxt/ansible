@@ -1,0 +1,18 @@
+- name: install rofi
+  apt: 
+    name: [ 'rofi' ]
+    state: present
+    update_cache: no
+  become: yes
+  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Linux Mint"
+
+- file: path="{{ ansible_user_id }}/.config/rofi/" state=directory recurse=yes
+- name: copy rofi config
+  synchronize:
+    src: .
+    dest: "{{ ansible_user_id }}/.config/rofi/"
+    delete: yes
+
+- debug: 
+    msg: |
+      ================== rofi -show combi -combi-modi "window,drun" -modi combi ==================

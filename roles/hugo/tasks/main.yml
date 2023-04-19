@@ -1,0 +1,12 @@
+---
+- name: download hugo deb and install it
+  apt:
+    deb: https://github.com/gohugoio/hugo/releases/download/v{{ hugo_version }}/hugo_extended_{{ hugo_version }}_Linux-64bit.deb
+  become: yes
+  when: in_china != "yes"
+
+- name: download hugo deb and install it in china
+  apt:
+    deb: https://src.babudiu.com/ubuntu_focal_deb/hugo_extended_{{ hugo_version }}_Linux-64bit.deb
+  become: yes
+  when: in_china == "yes"

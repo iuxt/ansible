@@ -1,0 +1,31 @@
+---
+- name: ubuntu20_wsl_init
+  hosts: localhost
+  vars:
+    ansible_connection: local  # 加上这个所有task都在本机执行
+
+  pre_tasks:
+    - debug:
+        msg: "{{ ansible_kernel }}"
+    - name: check wsl
+      fail: msg="this playbook only support wsl"
+      when: 
+        - "'WSL2' not in ansible_kernel"       # 这个是wsl2的内核
+        - "'Microsoft' not in ansible_kernel"   # 这个是wsl1的内核
+        # 在when里面调用变量就不用加{{}}了
+
+
+  roles:
+    - { role: repository, when: in_china == 'yes' }
+    - system_config
+    - git
+    - { role: zsh, zsh_theme: powerlevel10k }
+    - vim
+    - python3
+    - role: nodejs
+      nodejs_version: v16.16.0
+    - { role: docker, when: "'WSL2' in ansible_kernel" }
+    - { role: hugo, hugo_version: 0.101.0 }
+    - role: golang
+      golang_version: 1.17.5
+

@@ -1,0 +1,70 @@
+
+- name: install zsh
+  apt: 
+    name: zsh
+    state: latest
+    update_cache: no
+  become: yes
+
+- name: git clone oh-my-zsh
+  git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: "{{ ansible_user_id }}/.oh-my-zsh"
+    depth: 1
+  when: in_china != "yes"
+
+- name: git clone oh-my-zsh in China
+  git:
+    repo: https://e.coding.net/iuxt/github_mirror/ohmyzsh.git
+    dest: "{{ ansible_user_id }}/.oh-my-zsh"
+    depth: 1
+  when: in_china == "yes"
+
+- name: copy .zshrc
+  copy:
+    src: "{{ ansible_user_id }}/.oh-my-zsh/templates/zshrc.zsh-template"
+    dest: "{{ ansible_user_id }}/.zshrc"
+    force: no
+
+- name: change shell to zsh
+  user: name={{ ansible_user_id }} shell=/usr/bin/zsh
+  become: yes
+
+- file: path="{{ ansible_user_id }}/.local/bin state=directory recurse=yes"
+
+- name: zsh引用自定义rc文件
+  lineinfile:
+    dest: "{{ ansible_user_id }}/.zshrc"
+    line: "source "{{ ansible_user_id }}/.rc"
+    state: present
+    create: true
+
+# "{{ ansible_user_id }}/.local/bin is systemd default user binaries path , `systemd-path user-binaries`
+- name: 增加.local/bin到自定义rc文件
+  lineinfile:
+    dest: "{{ ansible_user_id }}/.rc"
+    line: "export PATH=$PATH:{{ ansible_user_id }}/.local/bin"
+    state: present
+    create: true
+
+- include: agnoster.yml
+  when: zsh_theme == "agnoster"
+
+- include: powerlevel10k.yml
+  when: zsh_theme == "powerlevel10k"
+
+- include: zsh-syntax-highlighting.yml
+- include: zsh-autosuggestions.yml
+
+- name: replace .zshrc plugin format
+  replace:
+    regexp: "^plugins=[(].*[)]"
+    path: "{{ ansible_user_id }}/.zshrc"
+    replace: |
+      plugins=(
+        z
+        git
+        sudo
+        zsh-autosuggestions
+        zsh-syntax-highlighting
+      )

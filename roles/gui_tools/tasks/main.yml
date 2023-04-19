@@ -1,0 +1,12 @@
+---
+# tasks file for gui_tools
+- name: install gui tools
+  apt: 
+    name: ["copyq", "flameshot"]
+    state: latest
+    update_cache: no
+  become: yes
+  when:
+    ( ansible_distribution == "Ubuntu" or ansible_distribution == "Linux Mint" or ansible_distribution == "Debian" )
+    and
+    ( ansible_virtualization_role != "guest" )

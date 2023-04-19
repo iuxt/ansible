@@ -1,0 +1,34 @@
+---
+- name: desktop_init
+  hosts: localhost
+  remote_user: iuxt
+
+  pre_tasks:
+    - debug:
+        msg: "{{ ansible_kernel }}"
+    - name: check wsl
+      fail: msg="this playbook don't support wsl"
+      when: 
+        ( 'WSL' in ansible_kernel )
+        or
+        ( 'Microsoft' in ansible_kernel )
+
+  roles:
+    - system_config
+    # - fonts  # zsh 模块依赖了 fonts
+    - openssh-server
+    - git
+    - { role: zsh, zsh_theme: powerlevel10k }
+    - vim
+    - python3
+    - nodejs
+    - rime
+  # - gui_tools
+    - rofi
+  # - typora
+    - { role: golang, golang_version: 1.17.5 }
+  # - { role: hugo, hugo_version: 0.101.0 }
+    - docker
+    - startup
+    - vscode
+    - syncthing

@@ -1,0 +1,42 @@
+- name: install fcitx5-rime
+  apt: 
+    name: [ 'fcitx5-rime' ]
+    state: present
+    update_cache: no
+  become: yes
+  # when: 
+  #   ( ansible_distribution == "Debian" and ansible_distribution_major_version|int >= 11 )
+  #   or
+  #   (  ansible_distribution == "Linux Mint" and ansible_distribution_major_version|int >= 21 )
+
+- name: 创建fcitx5-rime的配置文件目录
+  file: 
+    path: "{{ ansible_user_id }}/.local/share/fcitx5/rime/"
+    state: directory
+    recurse: yes
+  # when: 
+  #   ( ansible_distribution == "Debian" and ansible_distribution_major_version|int >= 11 )
+  #   or
+  #   (  ansible_distribution == "Linux Mint" and ansible_distribution_major_version|int >= 21 )
+
+- name: copy fcitx5 rime config
+  synchronize:
+    src: .
+    dest: "{{ ansible_user_id }}/.local/share/fcitx5/rime/"
+    delete: yes
+  # when: 
+  #   ( ansible_distribution == "Debian" and ansible_distribution_major_version|int >= 11 )
+  #   or
+  #   (  ansible_distribution == "Linux Mint" and ansible_distribution_major_version|int >= 21 )
+
+# - name: create wayland environment
+#   blockinfile:
+#     block: |
+#       INPUT_METHOD=fcitx
+#       GTK_IM_MODULE=fcitx
+#       QT_IM_MODULE=fcitx
+#       XMODIFIERS=@im=fcitx
+#     marker: "# {mark} fcitx auto start manage by ansible"
+#     path: /etc/environment
+#   become: yes
+#   when: ansible_env.XDG_SESSION_TYPE == "wayland"

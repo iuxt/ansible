@@ -1,0 +1,45 @@
+---
+- file: path="{{ install_dir }}" state=directory recurse=yes
+
+- name: download nodejs to {{ install_dir }}
+  unarchive:
+    src: 'https://nodejs.org/dist/{{ nodejs_version }}/node-{{ nodejs_version }}-linux-x64.tar.xz'
+    dest: "{{ install_dir }}"
+    remote_src: yes
+  args:
+    creates: "{{ install_dir }}/node-{{ nodejs_version }}-linux-x64"
+  become: no
+  when: in_china != "yes"
+
+- name: download nodejs to {{ install_dir }} in china
+  unarchive:
+    src: 'https://npmmirror.com/mirrors/node/{{ nodejs_version }}/node-{{ nodejs_version }}-linux-x64.tar.xz'
+    dest: "{{ install_dir }}"
+    remote_src: yes
+    creates: "{{ install_dir }}/node-{{ nodejs_version }}-linux-x64"
+  become: no
+  when: in_china == "yes"
+
+# - name: create link to nodejs src
+#   file:
+#     src: "{{ install_dir }}/node-{{ nodejs_version }}-linux-x64"
+#     dest: "{{ install_dir }}/node"
+#     state: link
+#     force: yes
+#   become: no
+
+- name: 添加nodejs环境变量到自定义rc文件
+  lineinfile:
+    dest: '{{ ansible_user_id }}/.rc'
+    line: '{{ item.line }}'
+    state: present
+    create: true
+  with_items:
+    - { line: "export PATH=$PATH:{{ install_dir }}/node-{{ nodejs_version }}-linux-x64/bin" }
+  # when: ansible_user_shell ==  "/usr/bin/zsh"
+
+
+- name: change npm config
+  copy:
+    src: .npmrc
+    dest: "{{ ansible_user_id }}/.npmrc"

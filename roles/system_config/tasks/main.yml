@@ -1,0 +1,97 @@
+---
+- name: install basic tools
+  apt: 
+    name: [ 'wget', 'screen', 'psmisc', 'curl', 'apt-file', 'unzip', 'libbz2-dev', 'libreadline-dev', 'libssl-dev', 'libsqlite3-dev', 'tree', 'rsync' ]
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: ulimit change
+  blockinfile:
+    path: /etc/security/limits.conf
+    marker: "# Ansible limit Change {mark}"
+    block: |
+      *               soft    nofile          65535
+      *               hard    nofile          65535
+      *               hard    nproc           65535
+      *               soft    nproc           65535
+  become: yes
+
+- name: change root passwd
+  user: name=root password=$6$mL0N.2apkAYWJHsh$1MubHbuJ2.dMp421l2TMnXJj5ifMutyosAFcGtcG0jXSCshLH8o4l.JJlBdrg1ZXlerU8DV.hcHMyJtrM6xWC1
+  become: yes
+  # password generate by openssl passwd -6
+
+# vmware workstation 点击挂起会卡死, 所以关闭挂起和休眠等功能.
+- name: disable sleep.target suspend.target hibernate.target hybrid-sleep.target
+  systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+    masked: yes
+  become: yes
+  with_items: 
+    - "sleep.target"
+    - "suspend.target"
+    - "hibernate.target"
+    - "hybrid-sleep.target"
+  when: ansible_virtualization_type == "VMware"
+
+- name: install vmware tools
+  apt: 
+    name: ["open-vm-tools", "open-vm-tools-desktop"]
+    state: latest
+    update_cache: no
+  become: yes
+  when: 
+    ( ansible_distribution == "Ubuntu" or ansible_distribution == "Linux Mint" or ansible_distribution == "Debian" )
+    and
+    ( ansible_virtualization_type == "VMware" )
+
+# - name: 自动挂载VMware虚拟机共享
+#   lineinfile:
+#     dest: /etc/fstab
+#     line: ".host:/ /mnt/hgfs fuse.vmhgfs-fuse allow_other,defaults 0 0"
+#     regexp: '^.host:/ /mnt/hgfs fuse.vmhgfs-fuse'
+#     state: present
+#     create: true
+#   become: yes
+#   when: ansible_virtualization_type == "VMware"
+
+# - name: 去除sudo密码
+#   lineinfile:
+#     path: /etc/sudoers
+#     state: present
+#     regexp: '^%sudo\s*ALL='
+#     line: '%sudo   ALL=(ALL:ALL) NOPASSWD:ALL'
+#     validate: /usr/sbin/visudo -cf %s
+#   become: yes
+
+- name: 修改sudo配置
+  template:
+    src: "{{ ansible_user_id }}.j2"
+    dest: "/etc/sudoers.d/{{ ansible_user_id }}"
+  become: yes
+
+- name: bash引用自定义rc文件
+  lineinfile:
+    dest: "{{ ansible_user_id }}/.rc"
+    line: "source {{ ansible_user_id }}/.rc"
+    state: present
+    create: true
+
+# 修改内核参数
+- name: 修改内核参数
+  copy:
+    src: jetbrains.conf
+    dest: /etc/sysctl.d/
+  become: yes
+
+- name: 设置常用的alias
+  lineinfile:
+    dest: "{{ ansible_user_id }}/.rc"
+    line: '{{ item.line }}'
+    state: present
+    create: true
+  with_items:
+    - { line: "alias ll='ls -al'" }

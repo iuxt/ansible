@@ -1,0 +1,8 @@
+# ---
+# dependencies:
+#   - role: fonts
+#     vars:
+#       in_china: no
+#   - role: zsh
+#     vars:
+#       zsh_theme: powerlevel10k

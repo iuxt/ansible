@@ -1,0 +1,37 @@
+- name: install packages
+  apt: 
+    name: ['gpg', 'wget']
+    state: latest
+    update_cache: no
+  become: yes
+  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Linux Mint" or ansible_distribution == "Debian"
+
+- name: 增加vscode的gpg key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    keyring: /etc/apt/trusted.gpg.d/packages.microsoft.gpg
+  become: yes
+
+- name: copy vscode repo
+  copy:
+    src: vscode.list
+    dest: /etc/apt/sources.list.d/vscode.list
+  become: yes
+
+- name: install vscode
+  apt:
+    name: code
+    state: latest
+    update_cache: yes
+  become: yes
+
+- name: Recursively Create VsCode User directory
+  file:
+    path: "{{ ansible_user_id }}/.config/Code/User/"
+    state: directory
+    recurse: yes
+
+- name: change vscode config
+  copy:
+    src: settings.json
+    dest: "{{ ansible_user_id }}/.config/Code/User/settings.json"

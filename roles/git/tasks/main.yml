@@ -1,0 +1,22 @@
+- name: install git
+  apt: 
+    name: ['git', 'git-lfs']
+    state: latest
+    update_cache: no
+  become: yes
+  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Linux Mint" or ansible_distribution == "Debian"
+  
+- name: copy .gitconfig
+  copy:
+    src: .gitconfig
+    dest: "{{ ansible_user_id }}/.gitconfig"
+    
+- name: 设置gpg的tty配置
+  lineinfile:
+    dest: '{{ ansible_user_id }}/.rc'
+    line: 'export GPG_TTY=$(tty)'
+    state: present
+    create: true
+  when: 
+    - "'WSL2' in ansible_kernel"        # 这个是wsl2的内核
+    - "'Microsoft' in ansible_kernel"   # 这个是wsl1的内核

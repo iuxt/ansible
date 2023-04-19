@@ -1,0 +1,39 @@
+---
+- name: 使用apt安装vim
+  apt: 
+    name: ["vim"]
+    state: latest
+    update_cache: no
+  become: yes
+
+- name: select-editor 设置默认编辑器为vim
+  copy:
+    src: .selected_editor
+    dest: "{{ ansible_user_id }}/.selected_editor"
+
+- name: update-alternatives --config editor 设置默认编辑器为vim
+  file:
+    src: "/bin/vim.basic"
+    dest: "/etc/alternatives/editor"
+    state: link
+    force: yes
+  become: yes
+
+- file: path="{{ ansible_user_id }}/.vim/autoload/" state=directory recurse=yes
+
+- name: 安装Plug插件管理工具
+  get_url:
+    url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    dest: "{{ ansible_user_id }}/.vim/autoload/"
+  when: in_china != "yes"
+
+- name: 安装Plug插件管理工具
+  copy:
+    src: "plug.vim"
+    dest: "{{ ansible_user_id }}/.vim/autoload/"
+  when: in_china == "yes"
+
+- name: 更改.vimrc配置文件
+  copy:
+    src: .vimrc
+    dest: "{{ ansible_user_id }}/.vimrc"
