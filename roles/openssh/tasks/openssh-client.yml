@@ -1,0 +1,4 @@
+- name: 增加.ssh/config配置
+  copy:
+    src: config
+    dest: "{{ ansible_env.HOME }}/.ssh/config"

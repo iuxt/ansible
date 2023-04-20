@@ -1,40 +1,5 @@
 ---
-- name: install openssh-server
-  apt: 
-    name: openssh-server
-    state: latest
-    update_cache: no
-  become: yes
+- include: openssh-client.yml
 
-- name: add authorized_keys
-  lineinfile:
-    dest: "{{ ansible_env.HOME }}/.ssh/authorized_keys
-    line: "{{ item.line }}"
-    state: present
-    create: true
-  with_items:
-  - {line: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDGqzEjjQrPkxRQ3o+P9bSnj28uNhsQNx4aBm36GCYK0yXjEiCMVUAFnTSrzDsQQuG5rE8t50MPQ+ikmKTpf3IJsmTK2lOEpKh4QqOgic5dAr+7M/084fkeOesYWZn0Jq3j9kiE+yyCaOa/QTQl60WJqYorvu1vtdkJuOPka7yUgZa4AuyJdodrVD7GIUGIzINd4qg6fOpuMSzyR1wtpMWnsSJsOVd+w51Btk4ZqygfH9cEu2VbyhNqCEpgrU1L/x/1cAjZFbHQPqUquElRZyteEZ+ZDjIxfRlUKpShCKEjTXtu2/NeCC6u74mbBYwW88AdxqzaSx/KBASAFM3QOiNfltH1t9ShNHWeFlDE1v7cX8M8tlfe47zBEeTbZM0NYF4l1jRd04EinTuNEktm1ggfltjtTZe7nVydxQKaBEob++qjBs6u4oRBDAGr+rFhsQ6RQbMRjlGJL+CvVtqKqlh23JAE//G3//1wVUmpADjbyTtXLchWsJXaJrwBYbQ8zoM= iuxt@LEGION"}
-
-- name: change root ssh config
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-    state: present
-  with_items:
-  - { regexp: "^PasswordAuthentication",line: "PasswordAuthentication no" }
-  - { regexp: "^#UseDNS yes",line: "UseDNS no" }
-  notify: restart sshd
-  become: yes
-
-- name: 设置sshd服务开机自启动
-  service:
-    name: ssh
-    state: started
-    enabled: yes
-  become: yes
-
-- name: 增加.ssh/config配置
-  copy:
-    src: config
-    dest: "{{ ansible_env.HOME }}/.ssh/config"
+- include: openssh-server.yml
+  when: ( 'WSL' not in ansible_kernel ) and ( 'Microsoft' not in ansible_kernel )

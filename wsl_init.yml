@@ -17,6 +17,7 @@
 
   roles:
     - { role: repository, when: in_china == 'yes' }
+    - openssh
     - system_config
     - git
     - { role: zsh, zsh_theme: powerlevel10k }
