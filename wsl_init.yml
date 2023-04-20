@@ -1,5 +1,5 @@
 ---
-- name: ubuntu20_wsl_init
+- name: ubuntu_wsl_init
   hosts: localhost
   vars:
     ansible_connection: local  # 加上这个所有task都在本机执行
