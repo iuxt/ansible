@@ -15,7 +15,7 @@
 
   roles:
     - system_config
-    - openssh-server
+    - openssh
     - git
     - vim
     - python3
