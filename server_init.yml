@@ -1,6 +1,6 @@
 ---
 - name: desktop_init
-  hosts: localhost
+  hosts: kubernetes
   remote_user: iuxt
 
   pre_tasks:
@@ -14,6 +14,7 @@
         ( 'Microsoft' in ansible_kernel )
 
   roles:
+    - repository
     - system_config
     - openssh
     - git

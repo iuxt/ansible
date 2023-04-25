@@ -14,6 +14,7 @@
         ( 'Microsoft' in ansible_kernel )
 
   roles:
+    - repository
     - system_config
     # - fonts  # zsh 模块依赖了 fonts
     - openssh
