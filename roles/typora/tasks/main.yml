@@ -12,7 +12,7 @@
 - name: install Typora 0.11.18 in China
   unarchive:
     remote_src: yes
-    src: https://src.babudiu.com/tgz/typora-0-11-18.tar.gz
+    src: https://file.babudiu.com/f/w0ty/typora-0-11-18.tar.gz
     dest: "{{ install_dir }}"
     creates: "{{ install_dir }}/typora"
   when: in_china == "yes"

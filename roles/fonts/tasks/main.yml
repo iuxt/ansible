@@ -24,7 +24,7 @@
 - name: install 'MesloLGS NF' in China
   unarchive:
     remote_src: yes
-    src: "https://src.babudiu.com/fonts/MesloLGS%20NF.tar.gz"
+    src: "https://file.babudiu.com/f/znF4/MesloLGS%20NF.tar.gz"
     dest: "{{ ansible_env.HOME }}/.local/share/fonts/"
     creates: "{{ ansible_env.HOME }}/.local/share/fonts/MesloLGS%20NF%20Regular.ttf"
   when: in_china == "yes"
