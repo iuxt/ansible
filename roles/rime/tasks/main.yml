@@ -1,33 +1,17 @@
-- name: install fcitx5-rime
-  apt: 
-    name: [ 'fcitx5-rime' ]
-    state: present
-    update_cache: no
-  become: yes
-  # when: 
-  #   ( ansible_distribution == "Debian" and ansible_distribution_major_version|int >= 11 )
-  #   or
-  #   (  ansible_distribution == "Linux Mint" and ansible_distribution_major_version|int >= 21 )
+- include: fcitx-rime.yml
+  when: 
+    - ansible_distribution == "Linux Mint"
+    - ansible_distribution_major_version|int = 20
 
-- name: 创建fcitx5-rime的配置文件目录
-  file: 
-    path: "{{ ansible_env.HOME }}/.local/share/fcitx5/rime/"
-    state: directory
-    recurse: yes
-  # when: 
-  #   ( ansible_distribution == "Debian" and ansible_distribution_major_version|int >= 11 )
-  #   or
-  #   (  ansible_distribution == "Linux Mint" and ansible_distribution_major_version|int >= 21 )
+- include: fcitx5-rime.yml
+  when: 
+    ( ansible_distribution == "Linux Mint" and ansible_distribution_major_version|int = 21 )
+    or
+    ( ansible_distribution == "Debian" )
 
-- name: copy fcitx5 rime config
-  synchronize:
-    src: .
-    dest: "{{ ansible_env.HOME }}/.local/share/fcitx5/rime/"
-    delete: yes
-  # when: 
-  #   ( ansible_distribution == "Debian" and ansible_distribution_major_version|int >= 11 )
-  #   or
-  #   (  ansible_distribution == "Linux Mint" and ansible_distribution_major_version|int >= 21 )
+- include: ibus-rime.yml
+  when: 
+    ansible_distribution == "Ubuntu"
 
 # - name: create wayland environment
 #   blockinfile:
