@@ -1,6 +1,6 @@
 - name: install ibus-rime
   apt: 
-    name: [ 'fcitx5-rime' ]
+    name: [ 'ibus-rime' ]
     state: present
     update_cache: no
   become: yes
@@ -11,7 +11,7 @@
     state: directory
     recurse: yes
 
-- name: copy fcitx5 rime config
+- name: copy ibus-rime config
   synchronize:
     src: .
     dest: "{{ ansible_env.HOME }}/.config/ibus/rime/"
