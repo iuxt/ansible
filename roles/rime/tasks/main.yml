@@ -4,7 +4,9 @@
     - ansible_distribution_major_version|int = 20
 
 - include: fcitx5-rime.yml
-  when: ansible_distribution == "Linux Mint" and ansible_distribution_major_version|int = 21
+  when: 
+    - ansible_distribution == "Linux Mint"
+    - ansible_distribution_major_version|int = 21
 
 - include: fcitx5-rime.yml
   when: ansible_distribution == "Debian"
