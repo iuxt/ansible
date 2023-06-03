@@ -1,10 +1,31 @@
 ---
 - name: install basic tools
   apt: 
-    name: [ 'wget', 'screen', 'psmisc', 'curl', 'apt-file', 'unzip', 'libbz2-dev', 'libreadline-dev', 'libssl-dev', 'tree', 'rsync' ]
+    name: [ 'wget', 'screen', 'psmisc', 'curl', 'apt-file', 'unzip', 'tree', 'rsync' ]
     state: present
     update_cache: yes
   become: yes
+
+- name: 安装编译工具
+  apt: 
+    name: 
+    - 'build-essential'
+    - 'libssl-dev'
+    - 'zlib1g-dev'
+    - 'libbz2-dev'
+    - 'libreadline-dev'
+    - 'libsqlite3-dev'
+    - 'libncursesw5-dev'
+    - 'xz-utils'
+    - 'tk-dev'
+    - 'libxml2-dev'
+    - 'libxmlsec1-dev'
+    - 'libffi-dev'
+    - 'liblzma-dev'
+    state: present
+    update_cache: no
+  become: yes
+  when: ansible_distribution in ["Ubuntu", "Debian", "Linux Mint"]
 
 - name: 安装开发工具
   apt: 
