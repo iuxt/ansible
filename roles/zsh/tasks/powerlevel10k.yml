@@ -30,5 +30,5 @@
 - name: add powerlevel10k config to "{{ ansible_env.HOME }}/.zshrc"
   lineinfile:
     dest: "{{ ansible_env.HOME }}/.zshrc"
-    line: "[[ ! -f {{ ansible_env.HOME }}/.p10k.zsh ]] || source {{ ansible_env.HOME }}/.p10k.zsh"
+    line: "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh"
     state: present
