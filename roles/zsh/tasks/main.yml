@@ -39,7 +39,7 @@
 - name: zsh引用自定义rc文件
   lineinfile:
     dest: "{{ ansible_env.HOME }}/.zshrc"
-    line: "source {{ ansible_env.HOME }}/.rc"
+    line: "source ~/.rc"
     state: present
     create: true
 

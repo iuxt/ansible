@@ -1,10 +1,28 @@
 ---
 - name: install basic tools
   apt: 
-    name: [ 'wget', 'screen', 'psmisc', 'curl', 'apt-file', 'unzip', 'libbz2-dev', 'libreadline-dev', 'libssl-dev', 'libsqlite3-dev', 'tree', 'rsync' ]
+    name: [ 'wget', 'screen', 'psmisc', 'curl', 'apt-file', 'unzip', 'libbz2-dev', 'libreadline-dev', 'libssl-dev', 'tree', 'rsync' ]
     state: present
     update_cache: yes
   become: yes
+
+- name: 安装开发工具
+  apt: 
+    name: 
+    - 'libmysqlclient-dev'
+    state: present
+    update_cache: no
+  become: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: 安装开发工具
+  apt: 
+    name: 
+    - 'libmariadb-dev'
+    state: present
+    update_cache: no
+  become: yes
+  when: ansible_distribution == "Debian"
 
 - name: ulimit change
   blockinfile:
@@ -76,7 +94,7 @@
 - name: bash引用自定义rc文件
   lineinfile:
     dest: "{{ ansible_env.HOME }}/.bashrc"
-    line: "source {{ ansible_env.HOME }}/.rc"
+    line: "source ~/.rc"
     state: present
     create: true
 
