@@ -23,6 +23,7 @@
     state: present
   with_items:
   - { regexp: "^PasswordAuthentication",line: "PasswordAuthentication no" }
+  - { regexp: "^#GSSAPIAuthentication", line: "GSSAPIAuthentication no" }
   - { regexp: "^#UseDNS yes",line: "UseDNS no" }
   notify: restart sshd
   become: yes
