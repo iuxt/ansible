@@ -26,6 +26,7 @@
     - role: nodejs
       nodejs_version: v16.16.0
     - { role: docker, when: "'WSL2' in ansible_kernel" }
+    - { role: rime, when: "'WSL2' in ansible_kernel" }
     - { role: hugo, hugo_version: 0.101.0 }
     - role: golang
       golang_version: 1.17.5

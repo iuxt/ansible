@@ -1,19 +1,28 @@
+# Linux Mint 20
 - include: fcitx-rime.yml
   when: 
     - ansible_distribution == "Linux Mint"
     - ansible_distribution_major_version|int = 20
 
+# Linux Mint 21
 - include: fcitx5-rime.yml
   when: 
     - ansible_distribution == "Linux Mint"
     - ansible_distribution_major_version|int = 21
 
+# Debian
 - include: fcitx5-rime.yml
   when: ansible_distribution == "Debian"
 
+# Ubuntu 桌面版
 - include: ibus-rime.yml
   when: 
-    ansible_distribution == "Ubuntu"
+    - ansible_distribution == "Ubuntu"
+    - "'WSL2' not in ansible_kernel"
+
+# WSL2
+- include: fcitx5-rime.yml
+  when: "'WSL2' in ansible_kernel"
 
 # - name: create wayland environment
 #   blockinfile:
