@@ -133,4 +133,4 @@
     state: present
     create: true
   with_items:
-    - { line: "alias ll='ls -al'" }
+    - { line: "alias ll='ls -l'" }
