@@ -7,12 +7,12 @@
 
 - name: 创建fcitx-rime的配置文件目录
   file: 
-    path: "{{ ansible_env.HOME }}/.local/share/fcitx/rime/"
+    path: "{{ ansible_env.HOME }}/.config/fcitx/rime/"
     state: directory
     recurse: yes
 
 - name: copy fcitx rime config
   synchronize:
     src: .
-    dest: "{{ ansible_env.HOME }}/.local/share/fcitx/rime/"
+    dest: "{{ ansible_env.HOME }}/.config/fcitx/rime/"
     delete: yes
