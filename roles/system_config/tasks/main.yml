@@ -74,7 +74,9 @@
     - "suspend.target"
     - "hibernate.target"
     - "hybrid-sleep.target"
-  when: ansible_virtualization_type == "VMware"
+  # LinuxMint 21 这里值为 NA
+  # when: ansible_virtualization_type == "VMware"
+  when: ansible_system_vendor == "VMware, Inc."
 
 - name: install vmware tools
   apt: 
