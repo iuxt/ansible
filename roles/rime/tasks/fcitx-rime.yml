@@ -1,3 +1,19 @@
+- name: remove fcitx5
+  apt: 
+    name:
+    - fcitx5
+    - fcitx5-rime
+    - fcitx5-chinese-addons-data
+    - fcitx5-module-chttrans 
+    - fcitx5-module-fullwidth 
+    - fcitx5-module-punctuation 
+    - fcitx5-pinyin 
+    - fcitx5-table
+
+    state: absent
+    update_cache: no
+  become: yes
+
 - name: install fcitx-rime
   apt: 
     name: [ 'fcitx-rime' ]
