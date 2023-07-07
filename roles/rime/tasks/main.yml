@@ -25,6 +25,8 @@
   when: "'WSL2' in ansible_kernel"
 
 
+- file: path="~/.zprofile" state=file
+
 # 兼容wsl2启动输入法
 - name: 兼容wsl2启动输入法
   blockinfile:
@@ -37,20 +39,6 @@
       fcitx5 --disable=wayland -d  --verbose '*'=0
     marker: "# {mark} rime autostart on wsl2 by ansible"
     path: ~/.zprofile
-  become: no
-  when: "'WSL2' in ansible_kernel"
-
-- name: 兼容wsl2启动输入法
-  blockinfile:
-    block: |
-      export GTK_IM_MODULE=fcitx
-      export QT_IM_MODULE=fcitx
-      export XMODIFIERS=@im=fcitx
-      export SDL_IM_MODULE=fcitx
-      export GLFW_IM_MODULE=ibus
-      fcitx5 --disable=wayland -d  --verbose '*'=0
-    marker: "# {mark} rime autostart on wsl2 by ansible"
-    path: ~/.profile
   become: no
   when: "'WSL2' in ansible_kernel"
 
