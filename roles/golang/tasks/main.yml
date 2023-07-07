@@ -27,4 +27,5 @@
     create: true
   with_items:
     - { line: "export PATH=$PATH:{{ install_dir }}/go/bin" }
+    - { line: "export PATH=$PATH:~/go/bin" } 
   # when: ansible_user_shell ==  "/usr/bin/zsh"
