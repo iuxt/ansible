@@ -1,6 +1,6 @@
 - name: install fcitx5-rime
   apt: 
-    name: [ 'fcitx5-rime' ]
+    name: [ 'fcitx5', 'fcitx5-rime' ]
     state: present
     update_cache: no
   become: yes
