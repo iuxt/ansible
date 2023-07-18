@@ -1,7 +1,7 @@
 ---
 - name: 使用apt安装vim
   apt: 
-    name: ["vim"]
+    name: ["vim", "vim-airline"]
     state: latest
     update_cache: no
   become: yes
