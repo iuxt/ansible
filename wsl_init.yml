@@ -35,7 +35,7 @@
       golang_version: 1.17.5
     # - { role: hugo, hugo_version: 0.101.0 }
     - { role: docker, when: "'WSL2' in ansible_kernel" }
-    - startup
+    # - startup
     # - vscode
     # - syncthing
 
