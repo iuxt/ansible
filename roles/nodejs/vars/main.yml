@@ -1,2 +1,3 @@
 ---
 install_dir: "{{ ansible_env.HOME }}/app"
+nodejs_version: "v18.16.1"
