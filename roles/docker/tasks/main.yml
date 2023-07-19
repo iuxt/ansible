@@ -67,12 +67,19 @@
     append: yes
   become: yes
 
+- name: 创建docker配置文件目录
+  file: path="/etc/docker" state=directory recurse=yes
+  become: yes
+
+- name: 复制docker配置文件
+  copy:
+    src: daemon.json
+    dest: "/etc/docker/daemon.json"
+  become: yes
+
 - name: enable and start docker daemon
   systemd:
     name: "docker.service"
     state: started
     enabled: yes
   become: yes
-
-- name: install docker-compose
-  pip: name=docker-compose
