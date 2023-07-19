@@ -1,7 +1,7 @@
 
-- name: install zsh
+- name: 安装zsh和常用工具
   apt: 
-    name: zsh
+    name: [ "zsh", "fzf" ]
     state: latest
     update_cache: no
   become: yes
@@ -71,4 +71,5 @@
         sudo
         zsh-autosuggestions
         zsh-syntax-highlighting
+        fzf
       )
