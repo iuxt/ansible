@@ -25,7 +25,7 @@
   when: "'WSL2' in ansible_kernel"
 
 
-- file: path="~/.zprofile" state=file
+- file: path="~/.zprofile" state=touch
 
 # 兼容wsl2启动输入法
 - name: 兼容wsl2启动输入法
