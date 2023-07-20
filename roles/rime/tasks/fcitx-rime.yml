@@ -27,8 +27,14 @@
     state: directory
     recurse: yes
 
+- name: 检查是否已经存在rime配置
+  stat:
+    path: ~/.config/fcitx/rime/clover.userdb
+  register: fcitx_userdb
+
 - name: copy fcitx rime config
   synchronize:
     src: .
     dest: "{{ ansible_env.HOME }}/.config/fcitx/rime/"
     delete: yes
+  when: not fcitx_userdb.stat.exists

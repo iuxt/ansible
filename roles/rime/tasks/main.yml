@@ -25,7 +25,13 @@
   when: "'WSL2' in ansible_kernel"
 
 
-- file: path="~/.zprofile" state=touch
+- name: 创建.zprofile文件
+  file:
+    path: "~/.zprofile"
+    state: touch
+    modification_time: preserve
+    access_time: preserve
+
 
 # 兼容wsl2启动输入法
 - name: 兼容wsl2启动输入法
