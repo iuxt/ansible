@@ -16,7 +16,7 @@
   roles:
     - repository
     - system_config
-    # - fonts  # zsh 模块依赖了 fonts
+    - fonts
     - openssh
     - git
     - { role: zsh, zsh_theme: powerlevel10k }
