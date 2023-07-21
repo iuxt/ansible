@@ -10,7 +10,14 @@
 
 - file: path="{{ ansible_env.HOME }}/.local/share/fonts" recurse=yes state=directory
 
-- name: install 'MesloLGS NF'
+
+- name: 检查是否已经存在MesloLGS NF字体
+  stat:
+    path: "{{ ansible_env.HOME }}/.local/share/fonts/MesloLGS%20NF%20Regular.ttf"
+  register: MesloLGS_fonts
+
+
+- name: 安装 'MesloLGS NF' 字体
   get_url:
     url: "{{ item }}"
     dest: "{{ ansible_env.HOME }}/.local/share/fonts/"
@@ -19,7 +26,10 @@
     - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
     - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
     - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
-  when: in_china != "yes"
+  when: 
+    - in_china != "yes"
+    - not MesloLGS_fonts.stat.exists
+
 
 - name: install 'MesloLGS NF' in China
   unarchive:
