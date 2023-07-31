@@ -13,6 +13,6 @@
 
 - name: copy fcitx5 rime config
   synchronize:
-    src: .
+    src: config
     dest: "{{ ansible_env.HOME }}/.local/share/fcitx5/rime/"
     delete: yes

@@ -13,6 +13,6 @@
 
 - name: copy ibus-rime config
   synchronize:
-    src: .
+    src: config
     dest: "{{ ansible_env.HOME }}/.config/ibus/rime/"
     delete: yes

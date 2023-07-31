@@ -34,7 +34,7 @@
 
 - name: copy fcitx rime config
   synchronize:
-    src: .
+    src: config
     dest: "{{ ansible_env.HOME }}/.config/fcitx/rime/"
     delete: yes
   when: not fcitx_userdb.stat.exists

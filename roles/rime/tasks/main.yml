@@ -52,6 +52,13 @@
   - "~/.xprofile"
   when: "'WSL2' in ansible_kernel"
 
+# 复制wsl2的脚本
+- name: 复制wsl2的脚本
+  copy:
+    src: tools/
+    dest: "{{ ansible_env.HOME }}/"
+    mode: 0755
+
 # - name: create wayland environment
 #   blockinfile:
 #     block: |
