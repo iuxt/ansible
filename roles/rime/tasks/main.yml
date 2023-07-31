@@ -24,14 +24,15 @@
 - include: fcitx5-rime.yml
   when: "'WSL2' in ansible_kernel"
 
-
-- name: 创建.zprofile文件
+- name: 创建.profile文件
   file:
-    path: "~/.zprofile"
+    path: "{{ item }}"
     state: touch
     modification_time: preserve
     access_time: preserve
-
+  with_items:
+  - "~/.zprofile"
+  - "~/.xprofile"
 
 # 兼容wsl2启动输入法
 - name: 兼容wsl2启动输入法
@@ -44,8 +45,11 @@
       export GLFW_IM_MODULE=ibus
       fcitx5 --disable=wayland -d  --verbose '*'=0
     marker: "# {mark} rime autostart on wsl2 by ansible"
-    path: ~/.zprofile
+    path: "{{ item }}"
   become: no
+  with_items:
+  - "~/.zprofile"
+  - "~/.xprofile"
   when: "'WSL2' in ansible_kernel"
 
 # - name: create wayland environment
