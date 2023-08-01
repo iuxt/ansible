@@ -136,3 +136,10 @@
     create: true
   with_items:
     - { line: "alias ll='ls -l'" }
+
+- name: 添加wsl.conf配置文件
+  copy:
+    src: wsl.conf
+    dest: /etc/
+  become: yes
+  when: "'WSL2' in ansible_kernel"
