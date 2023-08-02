@@ -36,11 +36,12 @@
     state: directory
     recurse: yes
 
-- name: zsh引用自定义rc文件
-  lineinfile:
-    dest: "{{ ansible_env.HOME }}/.zshrc"
+- name: zsh引用自定义rc文件,需要加在第一行
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
     line: "source ~/.rc"
     state: present
+    insertbefore: '^# Enable Powerlevel10k instant prompt'
     create: true
 
 # "{{ ansible_env.HOME }}/.local/bin is systemd default user binaries path , `systemd-path user-binaries`
