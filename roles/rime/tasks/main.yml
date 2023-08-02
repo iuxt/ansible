@@ -1,3 +1,10 @@
+- name: 安装daemonize
+  apt: 
+    name: [ 'daemonize' ]
+    state: present
+    update_cache: no
+  become: yes
+
 # Linux Mint 20
 - include: fcitx-rime.yml
   when: 
