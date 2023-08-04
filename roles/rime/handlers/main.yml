@@ -1,0 +1,5 @@
+
+- name: update locale
+  shell:
+    cmd: locale-gen
+  become: yes

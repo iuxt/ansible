@@ -1,4 +1,4 @@
-- name: install fcitx5-rime
+- name: 安装 fcitx5-rime, 请执行 fcitx5-configtool 增加rime输入法
   apt: 
     name: [ 'fcitx5', 'fcitx5-rime' ]
     state: present

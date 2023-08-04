@@ -1,3 +1,55 @@
+- name: 安装中文字体
+  apt: 
+    name: [ 'language-pack-zh-hans', 'fonts-noto-cjk', 'fonts-noto-cjk-extra' ]
+    state: present
+    update_cache: no
+  become: yes
+
+- name: locales 配置 en_US.UTF-8 和 zh_CN.UTF-8
+  lineinfile:
+    dest: "/etc/locale.gen"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+  - { regexp: "^# zh_CN.UTF-8 UTF-8",line: "zh_CN.UTF-8 UTF-8" }
+  - { regexp: "^# en_US.UTF-8 UTF-8",line: "en_US.UTF-8 UTF-8" }
+  become: yes
+  notify: update locale
+
+- name: 设置显示语言为中文
+  lineinfile:
+    dest: "/etc/default/locale"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+  - { regexp: "^LANG=.*",line: "LANG=zh_CN.UTF-8" }
+  - { regexp: '^LANGUAGE=.*',line: 'LANGUAGE="zh_CN:zh:en_US:en"' }
+  become: yes
+
+- name: 安装fcitx5输入法
+  apt: 
+    name: 
+    - 'fcitx5'
+    - 'fcitx5-chinese-addons'
+    - 'fcitx5-frontend-gtk4'
+    - 'fcitx5-frontend-gtk3'
+    - 'fcitx5-frontend-gtk2'
+    - 'fcitx5-frontend-qt5'
+    - 'fcitx5-config-qt'
+    - 'fcitx5-configtool'
+    state: present
+    update_cache: no
+  become: yes
+
+- name: 安装 im-config, 请执行im-config手动配置fcitx5输入法
+  apt: 
+    name: [ 'zenity', 'im-config' ]
+    state: present
+    update_cache: no
+  become: yes
+
 - include: fcitx5-rime.yml
   when: "'WSL2' in ansible_kernel"
 
