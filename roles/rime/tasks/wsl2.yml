@@ -1,0 +1,27 @@
+- include: fcitx5-rime.yml
+  when: "'WSL2' in ansible_kernel"
+
+- name: 配置输入法环境变量, 以及自动启动
+  blockinfile:
+    block: |
+      /usr/bin/fcitx5 --disable=wayland -d --verbose '*'=0
+
+      export INPUT_METHOD=fcitx
+      export GTK_IM_MODULE=fcitx
+      export QT_IM_MODULE=fcitx
+      export XMODIFIERS=@im=fcitx
+      export SDL_IM_MODULE=fcitx
+      export GLFW_IM_MODULE=ibus
+    marker: "# {mark} rime autostart on wsl2 by ansible"
+    path: "{{ item }}"
+  become: yes
+  with_items:
+  - "/etc/profile"
+  - "/etc/zsh/zprofile"
+  when: "'WSL2' in ansible_kernel"
+
+- name: 复制wsl2的脚本
+  copy:
+    src: tools/
+    dest: "{{ ansible_env.HOME }}/"
+    mode: 0755

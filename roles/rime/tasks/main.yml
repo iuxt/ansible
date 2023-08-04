@@ -1,21 +1,8 @@
-- name: 安装daemonize
-  apt: 
-    name: [ 'daemonize' ]
-    state: present
-    update_cache: no
-  become: yes
-
-# Linux Mint 20
+# Linux Mint
 - include: fcitx-rime.yml
   when: 
     - ansible_distribution == "Linux Mint"
-    - ansible_distribution_major_version|int == 20
-
-# Linux Mint 21
-- include: fcitx-rime.yml
-  when: 
-    - ansible_distribution == "Linux Mint"
-    - ansible_distribution_major_version|int == 21
+    - ansible_distribution_major_version|int in ['20', '21']
 
 # Debian
 - include: fcitx5-rime.yml
@@ -28,45 +15,8 @@
     - "'WSL2' not in ansible_kernel"
 
 # WSL2
-- include: fcitx5-rime.yml
+- include: wsl2.yml
   when: "'WSL2' in ansible_kernel"
-
-- name: 创建.profile文件
-  file:
-    path: "{{ item }}"
-    state: touch
-    modification_time: preserve
-    access_time: preserve
-  with_items:
-  - "~/.zprofile"
-  - "~/.xprofile"
-
-# 兼容wsl2启动输入法
-- name: 兼容wsl2启动输入法
-  blockinfile:
-    block: |
-      /usr/bin/fcitx5 --disable=wayland -d --verbose '*'=0
-
-      export INPUT_METHOD=fcitx
-      export GTK_IM_MODULE=fcitx
-      export QT_IM_MODULE=fcitx
-      export XMODIFIERS=@im=fcitx
-      export SDL_IM_MODULE=fcitx
-      export GLFW_IM_MODULE=ibus
-    marker: "# {mark} rime autostart on wsl2 by ansible"
-    path: "{{ item }}"
-  become: no
-  with_items:
-  - "~/.zprofile"
-  - "~/.xprofile"
-  when: "'WSL2' in ansible_kernel"
-
-# 复制wsl2的脚本
-- name: 复制wsl2的脚本
-  copy:
-    src: tools/
-    dest: "{{ ansible_env.HOME }}/"
-    mode: 0755
 
 # - name: create wayland environment
 #   blockinfile:
