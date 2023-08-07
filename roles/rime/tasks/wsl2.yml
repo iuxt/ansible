@@ -1,6 +1,6 @@
 - name: 安装中文字体
   apt: 
-    name: [ 'language-pack-zh-hans', 'fonts-noto-cjk', 'fonts-noto-cjk-extra' ]
+    name: [ 'language-pack-zh-hans', 'fonts-noto-cjk', 'fonts-noto-cjk-extra', 'fonts-noto-color-emoji' ]
     state: present
     update_cache: no
   become: yes
