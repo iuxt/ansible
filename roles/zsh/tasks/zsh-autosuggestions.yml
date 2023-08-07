@@ -1,6 +1,6 @@
 - name: git clone zsh-autosuggestions
   git:
-    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    repo: https://git.babudiu.com/mirror/zsh-autosuggestions.git
     dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
     depth: 1
   when: in_china != "yes"
