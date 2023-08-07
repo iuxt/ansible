@@ -69,6 +69,7 @@
   with_items:
   - "/etc/profile"
   - "/etc/zsh/zprofile"
+  - "/etc/startup.sh"
   when: "'WSL2' in ansible_kernel"
 
 - name: 复制wsl2的脚本
