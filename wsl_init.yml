@@ -19,6 +19,7 @@
   roles:
     - { role: repository, when: in_china == 'yes' }
     - system_config
+    - startup
     # - fonts  # zsh 模块依赖了 fonts
     # - openssh
     - git
@@ -35,7 +36,6 @@
       golang_version: 1.17.5
     # - { role: hugo, hugo_version: 0.101.0 }
     - { role: docker, when: "'WSL2' in ansible_kernel" }
-    # - startup
     # - vscode
     # - syncthing
 
