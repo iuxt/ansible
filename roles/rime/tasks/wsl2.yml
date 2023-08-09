@@ -1,6 +1,6 @@
 - name: 安装中文字体
   apt: 
-    name: [ 'language-pack-zh-hans', 'fonts-noto-cjk', 'fonts-noto-cjk-extra', 'fonts-noto-color-emoji' ]
+    name: [ 'language-pack-zh-hans', 'language-pack-gnome-zh-hans', 'fonts-noto-cjk', 'fonts-noto-cjk-extra', 'fonts-noto-color-emoji' ]
     state: present
     update_cache: no
   become: yes
@@ -42,9 +42,16 @@
     update_cache: no
   become: yes
 
-- name: 安装 im-config, 请执行im-config手动配置fcitx5输入法
+# - name: 安装 im-config, 请执行im-config手动配置fcitx5输入法
+#   apt: 
+#     name: [ 'zenity', 'im-config' ]
+#     state: present
+#     update_cache: no
+#   become: yes
+
+- name: 安装 language-selector-gnome 执行  sudo /usr/bin/gnome-language-selector
   apt: 
-    name: [ 'zenity', 'im-config' ]
+    name: [ 'language-selector-gnome' ]
     state: present
     update_cache: no
   become: yes
