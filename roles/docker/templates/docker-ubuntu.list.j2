@@ -1,1 +1,1 @@
-deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] {% if in_china == 'yes' %} https://mirrors.aliyun.com/docker-ce/linux/ubuntu {% else %} https://download.docker.com/linux/ubuntu {% endif %} {{ ansible_distribution_release }} stable
+deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu {{ ansible_distribution_release }} stable
