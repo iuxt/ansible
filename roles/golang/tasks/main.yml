@@ -2,22 +2,11 @@
 
 - name: download golang to {{ install_dir }}/go
   unarchive:
-    src: 'https://go.dev/dl/go{{ golang_version }}.linux-amd64.tar.gz'
-    dest: "{{ install_dir }}"
-    remote_src: yes
-  args:
-    creates: "{{ install_dir }}/go"
-  when: in_china != "yes"
-
-
-- name: download golang to {{ install_dir }}/go
-  unarchive:
     src: 'https://mirrors.ustc.edu.cn/golang/go{{ golang_version }}.linux-amd64.tar.gz'
     dest: "{{ install_dir }}"
     remote_src: yes
   args:
     creates: "{{ install_dir }}/go"
-  when: in_china == "yes"
 
 - name: 添加golang环境变量
   lineinfile:

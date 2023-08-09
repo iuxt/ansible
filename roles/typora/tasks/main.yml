@@ -1,21 +1,12 @@
 ---
 - file: path="{{ install_dir }}" state=directory recurse=yes
 
-- name: install Typora 0.11.18
-  unarchive:
-    remote_src: yes
-    src: https://github.com/iuxt/src/releases/download/2.0/typora-0-11-18.tar.gz
-    dest: "{{ install_dir }}"
-    creates: "{{ install_dir }}/typora"
-  when: in_china != "yes"
-
 - name: install Typora 0.11.18 in China
   unarchive:
     remote_src: yes
     src: https://file.babudiu.com/f/w0ty/typora-0-11-18.tar.gz
     dest: "{{ install_dir }}"
     creates: "{{ install_dir }}/typora"
-  when: in_china == "yes"
 
 - file: path="{{ ansible_env.HOME }}/.local/share/applications" state=directory recurse=yes
 

@@ -3,14 +3,6 @@
     repo: https://git.babudiu.com/mirror/powerlevel10k.git
     dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/powerlevel10k"
     depth: 1
-  when: in_china != "yes"
-
-- name: git clone powerlevel10k in China
-  git:
-    repo: https://e.coding.net/iuxt/github_mirror/powerlevel10k.git
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/powerlevel10k"
-    depth: 1
-  when: in_china == "yes"
 
 - name: add p10k config
   copy:

@@ -27,14 +27,4 @@
     - "https://git.babudiu.com/mirror/powerlevel10k-media/raw/branch/master/MesloLGS%20NF%20Bold.ttf"
     - "https://git.babudiu.com/mirror/powerlevel10k-media/raw/branch/master/MesloLGS%20NF%20Regular.ttf"
   when: 
-    - in_china != "yes"
     - not MesloLGS_fonts.stat.exists
-
-
-- name: install 'MesloLGS NF' in China
-  unarchive:
-    remote_src: yes
-    src: "https://file.babudiu.com/f/znF4/MesloLGS%20NF.tar.gz"
-    dest: "{{ ansible_env.HOME }}/.local/share/fonts/"
-    creates: "{{ ansible_env.HOME }}/.local/share/fonts/MesloLGS%20NF%20Regular.ttf"
-  when: in_china == "yes"

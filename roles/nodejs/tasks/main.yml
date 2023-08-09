@@ -1,16 +1,6 @@
 ---
 - file: path="{{ install_dir }}" state=directory recurse=yes
 
-- name: download nodejs to {{ install_dir }}
-  unarchive:
-    src: 'https://nodejs.org/dist/{{ nodejs_version }}/node-{{ nodejs_version }}-linux-x64.tar.xz'
-    dest: "{{ install_dir }}"
-    remote_src: yes
-  args:
-    creates: "{{ install_dir }}/node-{{ nodejs_version }}-linux-x64"
-  become: no
-  when: in_china != "yes"
-
 - name: download nodejs to {{ install_dir }} in china
   unarchive:
     src: 'https://npmmirror.com/mirrors/node/{{ nodejs_version }}/node-{{ nodejs_version }}-linux-x64.tar.xz'
@@ -18,7 +8,6 @@
     remote_src: yes
     creates: "{{ install_dir }}/node-{{ nodejs_version }}-linux-x64"
   become: no
-  when: in_china == "yes"
 
 # - name: create link to nodejs src
 #   file:

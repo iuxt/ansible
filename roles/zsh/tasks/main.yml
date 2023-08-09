@@ -11,14 +11,6 @@
     repo: https://git.babudiu.com/mirror/ohmyzsh.git
     dest: "{{ ansible_env.HOME }}/.oh-my-zsh"
     depth: 1
-  when: in_china != "yes"
-
-- name: git clone oh-my-zsh in China
-  git:
-    repo: https://e.coding.net/iuxt/github_mirror/ohmyzsh.git
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh"
-    depth: 1
-  when: in_china == "yes"
 
 - name: copy .zshrc
   copy:

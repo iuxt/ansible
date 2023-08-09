@@ -3,9 +3,3 @@
   apt:
     deb: https://github.com/gohugoio/hugo/releases/download/v{{ hugo_version }}/hugo_extended_{{ hugo_version }}_Linux-64bit.deb
   become: yes
-  when: in_china != "yes"
-
-- name: download hugo deb and install it in china
-  debug:
-    msg: "待修复"
-  when: in_china == "yes"

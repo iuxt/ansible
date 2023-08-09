@@ -6,6 +6,5 @@
   become: yes
   when:
     - ansible_distribution == "Ubuntu"
-    - in_china == "yes"
   vars:
     in_china: "yes"

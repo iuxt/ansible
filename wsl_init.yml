@@ -3,7 +3,6 @@
   hosts: localhost
   vars:
     ansible_connection: local  # 加上这个所有task都在本机执行
-    in_china: "yes"
 
   pre_tasks:
     - debug:
@@ -17,7 +16,7 @@
 
 
   roles:
-    - { role: repository, when: in_china == 'yes' }
+    - repository
     - system_config
     # - startup
     # - fonts  # zsh 模块依赖了 fonts
