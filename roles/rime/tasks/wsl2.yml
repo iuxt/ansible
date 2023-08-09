@@ -1,6 +1,6 @@
-- name: 安装中文字体
+- name: 安装依赖
   apt: 
-    name: [ 'language-pack-zh-hans', 'language-pack-gnome-zh-hans', 'fonts-noto-cjk', 'fonts-noto-cjk-extra', 'fonts-noto-color-emoji' ]
+    name: [ 'language-pack-zh-hans', 'language-pack-gnome-zh-hans', 'fonts-noto-cjk', 'fonts-noto-cjk-extra', 'fonts-noto-color-emoji', 'gnome-keyring' ]
     state: present
     update_cache: no
   become: yes
