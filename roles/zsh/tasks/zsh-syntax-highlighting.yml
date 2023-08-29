@@ -1,5 +1,5 @@
 - name: git clone zsh-syntax-highlighting
   git:
-    repo: https://git.babudiu.com/mirror/zsh-syntax-highlighting.git
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
     depth: 1

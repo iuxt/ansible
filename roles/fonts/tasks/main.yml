@@ -22,9 +22,9 @@
     url: "{{ item }}"
     dest: "{{ ansible_env.HOME }}/.local/share/fonts/"
   with_items:
-    - "https://git.babudiu.com/mirror/powerlevel10k-media/raw/branch/master/MesloLGS%20NF%20Bold%20Italic.ttf"
-    - "https://git.babudiu.com/mirror/powerlevel10k-media/raw/branch/master/MesloLGS%20NF%20Italic.ttf"
-    - "https://git.babudiu.com/mirror/powerlevel10k-media/raw/branch/master/MesloLGS%20NF%20Bold.ttf"
-    - "https://git.babudiu.com/mirror/powerlevel10k-media/raw/branch/master/MesloLGS%20NF%20Regular.ttf"
+    - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
+    - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
+    - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
+    - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
   when: 
     - not MesloLGS_fonts.stat.exists

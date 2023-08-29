@@ -8,7 +8,7 @@
 
 - name: git clone oh-my-zsh
   git:
-    repo: https://git.babudiu.com/mirror/ohmyzsh.git
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
     dest: "{{ ansible_env.HOME }}/.oh-my-zsh"
     depth: 1
 
