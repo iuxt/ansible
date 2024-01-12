@@ -110,7 +110,7 @@
 
 - name: 修改sudo配置
   template:
-    src: "{{ ansible_user_id }}.j2"
+    src: "custom.j2"
     dest: "/etc/sudoers.d/{{ ansible_user_id }}"
   become: yes
 
