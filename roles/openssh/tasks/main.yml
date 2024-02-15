@@ -1,4 +1,11 @@
 ---
+- name: "创建~/.ssh目录"
+  ansible.builtin.file:
+    path: "~/.ssh"
+    state: directory
+    recurse: yes
+    mode: 0700
+
 - include: openssh-client.yml
 
 - include: openssh-server.yml
